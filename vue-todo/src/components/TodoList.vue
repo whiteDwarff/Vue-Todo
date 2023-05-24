@@ -1,5 +1,10 @@
 <template>
   <div>
+    <!--
+      completed ? 
+        - vue에서 data의 변화를 감지하는 속성 
+        - 해당 코드에서는 todoItem의 key 속성인 completed가 변하면 class를 추가하는 로직이다.
+    -->
     <ul>
       <!-- v-for 실행 시 순서를 부여해주는 index가 있다 (default) -->
       <li v-for="(todoItem, index) in todoItems" :key="todoItem.item" class="shadow">
