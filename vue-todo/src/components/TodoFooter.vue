@@ -1,15 +1,32 @@
 <template>
-  <div>
-    footer
+  <div class="clearAllContainer">
+    <span @click="clearTodo" class="clearBtn">clear All</span>
   </div>
 </template>
 
 <script>
 export default {
-
+  methods: {
+    // 등록한 todo list를 모두 지우는 method
+    clearTodo: function() {
+      localStorage.clear();
+    }
+  }
 }
 </script>
 
-<style>
-
+<style scoped>
+.clearAllContainer {
+  width: 8.5rem;
+  height: 50px;
+  line-height: 50px;
+  background-color: #fff;
+  border-radius: 5px;
+  margin: 0 auto;
+}
+.clearBtn {
+  color: #f00;
+  display: block;
+  cursor: pointer;
+}
 </style>
