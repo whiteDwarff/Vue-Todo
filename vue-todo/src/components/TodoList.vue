@@ -7,7 +7,7 @@
     -->
     <ul>
       <!-- v-for 실행 시 순서를 부여해주는 index가 있다 (default) -->
-      <li v-for="(todoItem, index) in todoItems" :key="index" class="shadow">
+      <li v-for="(todoItem, index) in propsData" :key="index" class="shadow">
         <i @click="toggleComplete(todoItem)" class="fa-solid fa-check checkBtn" :class="{checkBtnCompleted: todoItem.completed}"></i>
         <!-- v-bind:를 class에 동적인 값을 부여한다.  todoItem의 상태가 변경될 때 class를 실행-->
         <span :class="{textCompleted: todoItem.completed}">{{ todoItem.item }}</span>
@@ -24,21 +24,10 @@
 export default {
   data: function() {
     return {
-      todoItems: [],
     }
   },
-  // life cycle
-  // 인스턴스가 생성되는 시점에 실행되는 함수(localStorage에 값이 저장되는 순간에 ~~)
-  created: function() {
-    if(localStorage.length) {
-      for(let i = 0; i < localStorage.length; i++) {
-        // localStorage의 key의 개수만큼 반복해서 todoItems에 담기
-        // data를 object로 변환해서 localStorage에서 가져온 i를 todoItems에 담아 ~~
-        // document에는 item(value)를 출력해야해서
-        this.todoItems.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
-      }
-    }
-  },
+  // App.vue로 받은 todoItems의 데이터
+  props: ['propsData'],
   methods: {
     removeTodo: function(todoItem, index) {
       localStorage.removeItem(todoItem.item);
