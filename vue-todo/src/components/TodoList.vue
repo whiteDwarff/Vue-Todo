@@ -16,30 +16,25 @@
           <i class="fa-solid fa-trash-can"></i>
         </span>
       </li>
-    </ul>
+    </ul> 
   </div>
 </template>
 
 <script>
 export default {
-  data: function() {
-    return {
-    }
-  },
-  // App.vue로 받은 todoItems의 데이터
+  // App.vue에서 받은 todoItems의 데이터
   props: ['propsData'],
   methods: {
     removeTodo: function(todoItem, index) {
-      localStorage.removeItem(todoItem.item);
-      // data에 저장된 todoItems의 배열에서 v-for실행시 생성된 index를 삭제함
-      this.todoItems.splice(index);
+      this.$emit('removeTodo', todoItem, index);
     },
     toggleComplete: function(todoItem) {
       // NOT 연산자를 사용하여 true이면 false로, false면 true로 변경시킴 !!!!! 좋은 로직이네 ~~
-      todoItem.completed = !todoItem.completed;
+      //todoItem.completed = !todoItem.completed;
       // localStorage의 데이터 갱신
-      localStorage.removeItem(todoItem.item);
-      localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
+      //localStorage.removeItem(todoItem.item);
+      //localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
+      this.$emit('toggleComplete', todoItem);
     }
   }
 }

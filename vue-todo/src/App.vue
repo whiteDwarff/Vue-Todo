@@ -1,10 +1,14 @@
 <template> 
   <div id="app">
     <TodoHeader></TodoHeader>
-    <TodoInput></TodoInput>
+    <TodoInput 
+    v-on:addTodoItem="addOneItem"></TodoInput>
     <!-- TodoList로 todoItems 데이터를 전송 -->
-    <TodoList :propsData="todoItems"></TodoList>
-    <TodoFooter></TodoFooter>
+    <TodoList
+    :propsData="todoItems"
+    v-on:removeTodo="removeOneItem"
+    v-on:toggleComplete="toggleCompleted"></TodoList>
+    <TodoFooter v-on:clearToDoList="clearTodo"></TodoFooter>
   </div>
 </template>
 
@@ -33,7 +37,27 @@ export default {
     }
   },
   methods: {
-
+    addOneItem: function(newTodoItem) {
+        const obj = {
+          completed: false,
+          item: newTodoItem
+        };
+        localStorage.setItem(newTodoItem, JSON.stringify(obj));
+        this.todoItems.push(obj);
+    },
+    removeOneItem: function(todoItem, index) {
+      localStorage.removeItem(todoItem.item);
+      this.todoItems.splice(index, 1);
+    },
+    toggleCompleted: function(todoItem) {
+      todoItem.completed = !todoItem.completed;
+      localStorage.removeItem(todoItem.item);
+      localStorage.setItem(todoItem.item, JSON.stringify(todoItem))
+    },
+    clearTodo: function() {
+      localStorage.clear();
+      this.todoItems = [];
+    }
   },
   components: {
     TodoHeader,
@@ -41,6 +65,7 @@ export default {
     TodoList,
     TodoFooter
   }
+
 }
 </script>
 

@@ -9,7 +9,7 @@ export default {
   methods: {
     // 등록한 todo list를 모두 지우는 method
     clearTodo: function() {
-      localStorage.clear();
+      this.$emit('clearToDoList');
     }
   }
 }

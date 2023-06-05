@@ -19,12 +19,9 @@ export default {
   methods: {    
     addTodo : function() {
       if(this.newTodoItem != '') {
-        // 동일한 text 값으로 key, value 저장
-        const obj = {
-          completed: false,
-          item: this.newTodoItem
-        };
-        localStorage.setItem(this.newTodoItem, JSON.stringify(obj));
+        // App.vue로 보낼 event, 
+        // '이벤트이름', parameter(newTodoItem)
+        this.$emit('addTodoItem', this.newTodoItem)
         this.clearInput();
       }
     },
