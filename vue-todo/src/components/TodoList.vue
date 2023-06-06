@@ -8,7 +8,7 @@
     <ul>
       <!-- v-for 실행 시 순서를 부여해주는 index가 있다 (default) -->
       <li v-for="(todoItem, index) in propsData" :key="index" class="shadow">
-        <i @click="toggleComplete(todoItem)" class="fa-solid fa-check checkBtn" :class="{checkBtnCompleted: todoItem.completed}"></i>
+        <i @click="toggleComplete(todoItem, index)" class="fa-solid fa-check checkBtn" :class="{checkBtnCompleted: todoItem.completed}"></i>
         <!-- v-bind:를 class에 동적인 값을 부여한다.  todoItem의 상태가 변경될 때 class를 실행-->
         <span :class="{textCompleted: todoItem.completed}">{{ todoItem.item }}</span>
         <!-- li에서 실행된 todoItem과 index를 받아온다. -->
@@ -26,15 +26,10 @@ export default {
   props: ['propsData'],
   methods: {
     removeTodo: function(todoItem, index) {
-      this.$emit('removeTodo', todoItem, index);
+      this.$emit('removeTodoItem', todoItem, index);
     },
-    toggleComplete: function(todoItem) {
-      // NOT 연산자를 사용하여 true이면 false로, false면 true로 변경시킴 !!!!! 좋은 로직이네 ~~
-      //todoItem.completed = !todoItem.completed;
-      // localStorage의 데이터 갱신
-      //localStorage.removeItem(todoItem.item);
-      //localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
-      this.$emit('toggleComplete', todoItem);
+    toggleComplete: function(todoItem, index) {
+      this.$emit('toggleComplete', todoItem, index);
     }
   }
 }
