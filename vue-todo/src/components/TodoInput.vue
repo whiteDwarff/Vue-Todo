@@ -2,11 +2,11 @@
   <div class="inputBox shadow">
     <!-- v-model : to-way binding -->
     <!-- v-on:keyup.enter="", enter를 사용해도 event 실행할거야 ~ -->
-    <input type="text" v-model="newTodoItem" v-on:keyup.enter="addTodo">
+    <input type="text" v-model="newTodoItem" @keypress.enter="addTodo">
     <span class="addContainer">
       <i class="fa-solid fa-plus addBtn" @click="addTodo"></i>
     </span>
-    <ModalVue v-if="showModal" @close="showModal = false">
+    <ModalVue v-if="showModal" @close="showModal=false">
       <!-- modal-header에 해당 요소를 삽입하여 재사용 -->
       <h3 slot="header">
         경고! 
@@ -32,7 +32,7 @@ export default {
       if(this.newTodoItem != '') {
         // App.vue로 보낼 event, 
         // '이벤트이름', parameter(newTodoItem)
-        this.$emit('addTodoItem', this.newTodoItem)
+        this.$emit('addTodoItem', this.newTodoItem);
         this.clearInput();
       } else {
         // input에 입력된 값이 ''일 경우

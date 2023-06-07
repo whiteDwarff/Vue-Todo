@@ -1,11 +1,8 @@
 <template>
   <div>
-    <!--
-      completed ? 
-        - vue에서 data의 변화를 감지하는 속성 
-        - 해당 코드에서는 todoItem의 key 속성인 completed가 변하면 class를 추가하는 로직이다.
-    -->
-    <ul>
+    <!-- name="css-class-group" tag="html-tag" -->
+    <!-- name을 list로 정의하면 vue.js에서 제공하는 list관련 css 중 enter, leave등의 class를 사용할 수 있음 -->
+    <transition-group name="list" tag="ul">    
       <!-- v-for 실행 시 순서를 부여해주는 index가 있다 (default) -->
       <li v-for="(todoItem, index) in propsData" :key="index" class="shadow">
         <i @click="toggleComplete(todoItem, index)" class="fa-solid fa-check checkBtn" :class="{checkBtnCompleted: todoItem.completed}"></i>
@@ -16,7 +13,7 @@
           <i class="fa-solid fa-trash-can"></i>
         </span>
       </li>
-    </ul> 
+    </transition-group>
   </div>
 </template>
 
@@ -69,5 +66,14 @@ export default {
     margin-left: auto;
     color: #de4343;
     cursor: pointer;
+  }
+  /* list-item transition */
+  /* enter : 요소가 추가될 떄, leave : 요소가 없어질 때 */
+  .list-enter-active, .list-leave-active {
+    transition: all 1s;
+  }
+  .list-enter, .list-leave-to {
+    opacity: 0;
+    transform: translateY(30px);
   }
 </style>
