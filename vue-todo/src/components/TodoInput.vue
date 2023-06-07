@@ -6,14 +6,25 @@
     <span class="addContainer">
       <i class="fa-solid fa-plus addBtn" @click="addTodo"></i>
     </span>
+    <ModalVue v-if="showModal" @close="showModal = false">
+      <!-- modal-header에 해당 요소를 삽입하여 재사용 -->
+      <h3 slot="header">
+        경고! 
+        <i @click="showModal = false" 
+        class="closeModalBtn fa-solid fa-xmark"></i>
+      </h3>
+      <div slot="body">Todo-List를 입력하세요!</div>
+    </ModalVue>
   </div>
 </template>
 
 <script>
+  import ModalVue from './common/ModalVue.vue';
 export default {
   data : function() {
     return { 
       newTodoItem: "",
+      showModal: false,
     }
   },
   methods: {    
@@ -23,12 +34,17 @@ export default {
         // '이벤트이름', parameter(newTodoItem)
         this.$emit('addTodoItem', this.newTodoItem)
         this.clearInput();
+      } else {
+        // input에 입력된 값이 ''일 경우
+        this.showModal = !this.showModal
       }
     },
     clearInput : function() {
       this.newTodoItem = "";
-    }
-
+    },
+  },
+  components: {
+    ModalVue,
   }
 }
 </script>
@@ -61,5 +77,11 @@ input:focus {
 .addBtn {
   color: #fff;
   vertical-align: middle;
+}
+.closeModalBtn { 
+  display: inline-block;
+  margin-left: 10px;
+  cursor: pointer;
+  color: #43b983;
 }
 </style>
