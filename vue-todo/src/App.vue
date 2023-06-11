@@ -19,7 +19,7 @@ import TodoList from './components/TodoList.vue';
 import TodoFooter from './components/TodoFooter.vue';
 
 export default {
-  data: function() {
+  data(){
     return {
       todoItems: [],
     }
@@ -37,7 +37,7 @@ export default {
     }
   },
   methods: {
-    addOneItem: function(newTodoItem) {
+    addOneItem(newTodoItem) {
         const obj = {
           completed: false,
           item: newTodoItem
@@ -45,16 +45,16 @@ export default {
         localStorage.setItem(newTodoItem, JSON.stringify(obj));
         this.todoItems.push(obj);
     },
-    removeOneItem: function(todoItem, index) {
+    removeOneItem(todoItem, index) {
       localStorage.removeItem(todoItem.item);
       this.todoItems.splice(index, 1);
     },
-    toggleCompleted: function(todoItem, index) {
+    toggleCompleted(todoItem, index) {
       this.todoItems[index].completed = !this.todoItems[index].completed; 
       localStorage.removeItem(todoItem.item);
       localStorage.setItem(todoItem.item, JSON.stringify(todoItem))
     },
-    clearTodo: function() {
+    clearTodo() {
       localStorage.clear();
       this.todoItems = [];
     }

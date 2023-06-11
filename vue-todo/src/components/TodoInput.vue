@@ -21,14 +21,14 @@
 <script>
   import ModalVue from './common/ModalVue.vue';
 export default {
-  data : function() {
+  data() {
     return { 
       newTodoItem: "",
       showModal: false,
     }
   },
   methods: {    
-    addTodo : function() {
+    addTodo() {
       if(this.newTodoItem != '') {
         // App.vue로 보낼 event, 
         // '이벤트이름', parameter(newTodoItem)
@@ -39,7 +39,7 @@ export default {
         this.showModal = !this.showModal
       }
     },
-    clearInput : function() {
+    clearInput() {
       this.newTodoItem = "";
     },
   },

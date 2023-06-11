@@ -22,10 +22,10 @@ export default {
   // App.vue에서 받은 todoItems의 데이터
   props: ['propsData'],
   methods: {
-    removeTodo: function(todoItem, index) {
+    removeTodo(todoItem, index) {
       this.$emit('removeTodoItem', todoItem, index);
     },
-    toggleComplete: function(todoItem, index) {
+    toggleComplete(todoItem, index) {
       this.$emit('toggleComplete', todoItem, index);
     }
   }
