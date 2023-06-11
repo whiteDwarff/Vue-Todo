@@ -1,7 +1,5 @@
 <template>
   <div class="inputBox shadow">
-    <!-- v-model : to-way binding -->
-    <!-- v-on:keyup.enter="", enter를 사용해도 event 실행할거야 ~ -->
     <input type="text" v-model="newTodoItem" @keypress.enter="addTodo">
     <span class="addContainer">
       <i class="fa-solid fa-plus addBtn" @click="addTodo"></i>
@@ -30,9 +28,8 @@ export default {
   methods: {    
     addTodo() {
       if(this.newTodoItem != '') {
-        // App.vue로 보낼 event, 
-        // '이벤트이름', parameter(newTodoItem)
-        this.$emit('addTodoItem', this.newTodoItem);
+        let text = this.newTodoItem.trim();
+        this.$store.commit('addOneItem', text);
         this.clearInput();
       } else {
         // input에 입력된 값이 ''일 경우

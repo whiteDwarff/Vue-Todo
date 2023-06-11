@@ -3,8 +3,8 @@
     <!-- name="css-class-group" tag="html-tag" -->
     <!-- name을 list로 정의하면 vue.js에서 제공하는 list관련 css 중 enter, leave등의 class를 사용할 수 있음 -->
     <transition-group name="list" tag="ul">    
-      <!-- v-for 실행 시 순서를 부여해주는 index가 있다 (default) -->
-      <li v-for="(todoItem, index) in propsData" :key="index" class="shadow">
+      <!-- store.js에서 사용한 store을 사용  -->
+      <li v-for="(todoItem, index) in this.$store.state.todoItems" :key="index" class="shadow">
         <i @click="toggleComplete(todoItem, index)" class="fa-solid fa-check checkBtn" :class="{checkBtnCompleted: todoItem.completed}"></i>
         <!-- v-bind:를 class에 동적인 값을 부여한다.  todoItem의 상태가 변경될 때 class를 실행-->
         <span :class="{textCompleted: todoItem.completed}">{{ todoItem.item }}</span>
@@ -20,13 +20,17 @@
 <script>
 export default {
   // App.vue에서 받은 todoItems의 데이터
-  props: ['propsData'],
   methods: {
     removeTodo(todoItem, index) {
-      this.$emit('removeTodoItem', todoItem, index);
+    /* let obj = {
+          todoItem : todoItem,
+          index : index
+        }  를 변수 선언 없어 ES6 문법으로 key, value가 같으면 하나만 선언해도 되기에
+        {todoItem , index}로 전송     */
+      this.$store.commit('removeOneItem', {todoItem, index});
     },
     toggleComplete(todoItem, index) {
-      this.$emit('toggleComplete', todoItem, index);
+      this.$store.commit('toggleCompleted', {todoItem, index});
     }
   }
 }

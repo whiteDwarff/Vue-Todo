@@ -1,14 +1,9 @@
 <template> 
   <div id="app">
     <TodoHeader></TodoHeader>
-    <TodoInput 
-      v-on:addTodoItem="addOneItem"></TodoInput>
-    <!-- TodoList로 todoItems 데이터를 전송 -->
-    <TodoList
-      :propsData="todoItems"
-      v-on:removeTodoItem="removeOneItem"
-      v-on:toggleComplete="toggleCompleted"></TodoList>
-    <TodoFooter v-on:clearToDoList="clearTodo"></TodoFooter>
+    <TodoInput></TodoInput>
+    <TodoList></TodoList>
+    <TodoFooter></TodoFooter>
   </div>
 </template>
 
@@ -19,53 +14,12 @@ import TodoList from './components/TodoList.vue';
 import TodoFooter from './components/TodoFooter.vue';
 
 export default {
-  data(){
-    return {
-      todoItems: [],
-    }
-  },
-  // life cycle
-  // 인스턴스가 생성되는 시점에 실행되는 함수(localStorage에 값이 저장되는 순간에 ~~)
-  created: function() {
-    if(localStorage.length) {
-      for(let i = 0; i < localStorage.length; i++) {
-        // localStorage의 key의 개수만큼 반복해서 todoItems에 담기
-        // data를 object로 변환해서 localStorage에서 가져온 i를 todoItems에 담아 ~~
-        // key : 할일, value는 속성이 들어있다.
-        this.todoItems.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
-      }
-    }
-  },
-  methods: {
-    addOneItem(newTodoItem) {
-        const obj = {
-          completed: false,
-          item: newTodoItem
-        };
-        localStorage.setItem(newTodoItem, JSON.stringify(obj));
-        this.todoItems.push(obj);
-    },
-    removeOneItem(todoItem, index) {
-      localStorage.removeItem(todoItem.item);
-      this.todoItems.splice(index, 1);
-    },
-    toggleCompleted(todoItem, index) {
-      this.todoItems[index].completed = !this.todoItems[index].completed; 
-      localStorage.removeItem(todoItem.item);
-      localStorage.setItem(todoItem.item, JSON.stringify(todoItem))
-    },
-    clearTodo() {
-      localStorage.clear();
-      this.todoItems = [];
-    }
-  },
   components: {
     TodoHeader,
     TodoInput,
     TodoList,
     TodoFooter
   }
-
 }
 </script>
 
